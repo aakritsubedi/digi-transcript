@@ -1,5 +1,5 @@
 /node_modules
 /build
 
-/view/node_modules
-/view/build
+/client/node_modules
+/client/build
