@@ -21,4 +21,4 @@ const verifyHash = (message, hash) => {
 module.exports = {
   getHash,
   verifyHash
-}
+};

@@ -14,4 +14,4 @@ app.listen(PORT, (err) => {
   } else {
     console.log("Server started at PORT: " + PORT.toString());
   }
-})
+});
