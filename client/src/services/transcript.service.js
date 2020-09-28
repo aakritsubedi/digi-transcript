@@ -20,7 +20,7 @@ class OrderServices {
       }
     );
 
-    return certificateInfo;
+    return certificateInfo.data;
   }
 
   static async orderTranscript(username) {

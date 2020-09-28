@@ -3,14 +3,13 @@ import React, { useState } from "react";
 import OrderService from "services/transcript.service";
 
 function Verify() {
-  const [status, setStatus] = useState(false);
+  const [status, setStatus] = useState(null);
 
   const verifyCertificate = async () => {
     const certificate = document.getElementById("certificate-info").value;
 
     const validate = await OrderService.verifyCertificate(certificate);
-
-    setStatus(validate.data);
+    setStatus(validate);
   };
 
   return (
@@ -32,7 +31,7 @@ function Verify() {
               className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
               type="text"
               placeholder="Enter your certificate json"
-              rows="5"
+              rows="8"
               id="certificate-info"
             />
             <button
@@ -53,6 +52,7 @@ function Verify() {
       ) : (
         <h1>Your certificate is valid</h1>
       )}
+      {!status && status !==null ? <h1>Your certificate is not valid. Please update your certificate info.</h1> : '' }
     </main>
   );
 }
