@@ -1,29 +1,44 @@
-import React from "react";
+import React, { useState } from "react";
+
+import OrderService from "services/transcript.service";
 
 function Verify() {
+  const [status, setStatus] = useState(false);
+
+  const verifyCertificate = async () => {
+    const certificate = document.getElementById("certificate-info").value;
+
+    const validate = await OrderService.verifyCertificate(certificate);
+
+    setStatus(validate.data);
+  };
+
   return (
     <main
-        className="container mx-auto px-3 pb-16"
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <h1 className="text-3xl font-bold">Verify Certificate</h1>
-        <hr />
+      className="container mx-auto px-3 pb-16"
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <h1 className="text-3xl font-bold">Verify Certificate</h1>
+      <hr />
+      {!status ? (
         <form className="w-full max-w-sm" style={{ marginTop: "50px" }}>
           <div className="flex items-center border-b border-teal-500 py-2">
-            <input
+            <textarea
               className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
               type="text"
-              placeholder="Enter your certificate hash"
-              aria-label="Full name"
+              placeholder="Enter your certificate json"
+              rows="5"
+              id="certificate-info"
             />
             <button
               className="flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded"
               type="button"
+              onClick={verifyCertificate}
             >
               Verify
             </button>
@@ -35,7 +50,12 @@ function Verify() {
             </button>
           </div>
         </form>
-      </main>
+      ) : (
+        ""
+      )}
+
+      {status ? <h1>Your certificate is valid</h1> : <h1>Your certificate is not valid. Please re-try.</h1>}
+    </main>
   );
 }
 
