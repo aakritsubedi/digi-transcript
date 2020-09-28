@@ -1,9 +1,8 @@
 import React from "react";
 
-class Header extends React.Component {
-  render() {
-    return (
-      <main
+function Verify() {
+  return (
+    <main
         className="container mx-auto px-3 pb-16"
         style={{
           display: "flex",
@@ -12,14 +11,14 @@ class Header extends React.Component {
           justifyContent: "center",
         }}
       >
-        <h1 className="text-3xl font-bold">Verify Transcript</h1>
+        <h1 className="text-3xl font-bold">Verify Certificate</h1>
         <hr />
         <form className="w-full max-w-sm" style={{ marginTop: "50px" }}>
           <div className="flex items-center border-b border-teal-500 py-2">
             <input
               className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
               type="text"
-              placeholder="Enter your transcript hash"
+              placeholder="Enter your certificate hash"
               aria-label="Full name"
             />
             <button
@@ -37,8 +36,7 @@ class Header extends React.Component {
           </div>
         </form>
       </main>
-    );
-  }
+  );
 }
 
-export default Header;
+export default Verify;
