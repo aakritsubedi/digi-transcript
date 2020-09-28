@@ -1,6 +1,11 @@
 SECURITY_KEY = "ThisIsSecurityKey";
 
 const TRANSCRIPTS = {
+  "aakrit": {
+    "username": "aakrit",
+    "fullname": "Aakrit Subedi",
+    "score": 80
+  },
   "john": {
     "username": "john",
     "fullname": "John Travolta",
