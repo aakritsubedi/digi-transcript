@@ -51,10 +51,8 @@ function Verify() {
           </div>
         </form>
       ) : (
-        ""
+        <h1>Your certificate is valid</h1>
       )}
-
-      {status ? <h1>Your certificate is valid</h1> : <h1>Your certificate is not valid. Please re-try.</h1>}
     </main>
   );
 }

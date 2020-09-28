@@ -10,7 +10,6 @@ function Order() {
 
     const myOrder = await OrderService.orderTranscript(username);
 
-    console.log(myOrder);
     setMyCertificate(myOrder);
   };
 
