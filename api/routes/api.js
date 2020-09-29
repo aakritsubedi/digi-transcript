@@ -79,20 +79,11 @@ router.post('/verifications', async (req, res) => {
   }
 
   const hash = await blockchain.getCertificateFromUserId(certificate.security.userId);
-  console.log(hash);
-  // const username = certificate.transcript.username;
-  // let actualTranscript = extractTranscript(username);
-  // const isVerificationSuccessForActualTranscript = security.verifyHash(
-  //   JSON.stringify(actualTranscript),
-  //   hash
-  // );
 
-  const isVerificationSuccessForSubmittedTranscript = security.verifyHash(
+  const isVerificationSuccess = security.verifyHash(
     JSON.stringify(certificate.transcript),
     hash
   );
-
-  const isVerificationSuccess = isVerificationSuccessForSubmittedTranscript; // && isVerificationSuccessForActualTranscript;
 
   console.log(isVerificationSuccess);
   res.json(isVerificationSuccess);
