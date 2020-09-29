@@ -1,4 +1,4 @@
-SECURITY_KEY = "ThisIsSecurityKey";
+SECURITY_KEY = process.env.SECURITY_KEY || "ThisIsSecurityKey";
 
 const TRANSCRIPTS = {
   "aakrit": {

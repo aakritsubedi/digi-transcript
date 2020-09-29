@@ -6,20 +6,26 @@ const { TRANSCRIPTS }= require('../data');
 const router = express.Router();
 
 const orders = [
-  
+
 ];
 
-// @route POST /api/orders
-router.post('/orders', (req, res) => {
-  const username = req.body.username;
-  
+const extractTranscript = (username) => {
   let transcript;
-
   Object.keys(TRANSCRIPTS).forEach((key) => {
     if(TRANSCRIPTS[key].username == username) {
       transcript = TRANSCRIPTS[key];
     }
   });
+
+  return transcript;
+}
+
+
+// @route POST /api/orders
+router.post('/orders', (req, res) => {
+  const username = req.body.username;
+
+  let transcript = extractTranscript(username);
 
   if (!transcript) {
     res.status(404).json('The username not found');
@@ -65,10 +71,20 @@ router.post('/verifications', (req, res) => {
     return
   }
 
-  const isVerificationSuccess = security.verifyHash(
+  const username = certificate.transcript.username;
+  let actualTranscript = extractTranscript(username);
+
+  const isVerificationSuccessForActualTranscript = security.verifyHash(
+    JSON.stringify(actualTranscript),
+    certificate.security.hash
+  );
+
+  const isVerificationSuccessForSubmittedTranscript = security.verifyHash(
     JSON.stringify(certificate.transcript),
     certificate.security.hash
   );
+
+  const isVerificationSuccess = isVerificationSuccessForActualTranscript && isVerificationSuccessForSubmittedTranscript
 
   console.log(isVerificationSuccess);
   res.json(isVerificationSuccess);
