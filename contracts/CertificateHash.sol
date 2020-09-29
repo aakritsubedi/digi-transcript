@@ -16,15 +16,14 @@ contract CertificateHash {
     }
 
     // Storage
-    mapping(uint256 => Certificate) public certificates;
-    mapping(uint256 => Certificate) public certificateInfo;
+    mapping(uint => Certificate) public certificates;
 
     // Event
-    event CertificateIssued(uint256 id, string certificateHash, address owner);
+    event CertificateIssued(uint id, string certificateHash, address owner);
 
-    // Constructor fn to initilize the task
+    // Constructor fn to initilize the dummy certificate
     constructor() public {
-        issueCertificate("12556666666666666666666666");
+        issueCertificate("6811EC49F0749A2C73D23FD8054D1ACBED30AE68F8997B91BA0BEAFB93ABD95F");
     }
 
     function issueCertificate(string memory _hash) public {
