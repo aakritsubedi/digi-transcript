@@ -1,5 +1,6 @@
 const express = require('express');
 
+const blockchain = require('../blockchain');
 const security = require('../security');
 const { TRANSCRIPTS }= require('../data');
 
@@ -22,7 +23,7 @@ const extractTranscript = (username) => {
 
 
 // @route POST /api/orders
-router.post('/orders', (req, res) => {
+router.post('/orders', async (req, res) => {
   const username = req.body.username;
 
   let transcript = extractTranscript(username);
@@ -30,11 +31,17 @@ router.post('/orders', (req, res) => {
   if (!transcript) {
     res.status(404).json('The username not found');
   } else {
+
+    const transcriptHash = security.getHash(JSON.stringify(transcript));
+    const transaction = await blockchain.issueNewCertificate(transcriptHash);
+    console.log(transaction)
+
     order = {
-      "id": orders.length,
+      "id": orders.length + 1,
       "transcript": transcript,
       "security": {
-        "hash": security.getHash(JSON.stringify(transcript))
+        "userId": orders.length + 1,
+        "transactionHash": transaction
       }
     }
 
@@ -63,7 +70,7 @@ router.get('/orders/:id', (req, res) => {
 
 
 // @route POST /api/verifications
-router.post('/verifications', (req, res) => {
+router.post('/verifications', async (req, res) => {
   const certificate = req.body.certificate;
 
   if(!certificate) {
@@ -71,20 +78,21 @@ router.post('/verifications', (req, res) => {
     return
   }
 
-  const username = certificate.transcript.username;
-  let actualTranscript = extractTranscript(username);
-
-  const isVerificationSuccessForActualTranscript = security.verifyHash(
-    JSON.stringify(actualTranscript),
-    certificate.security.hash
-  );
+  const hash = await blockchain.getCertificateFromUserId(certificate.security.userId);
+  console.log(hash);
+  // const username = certificate.transcript.username;
+  // let actualTranscript = extractTranscript(username);
+  // const isVerificationSuccessForActualTranscript = security.verifyHash(
+  //   JSON.stringify(actualTranscript),
+  //   hash
+  // );
 
   const isVerificationSuccessForSubmittedTranscript = security.verifyHash(
     JSON.stringify(certificate.transcript),
-    certificate.security.hash
+    hash
   );
 
-  const isVerificationSuccess = isVerificationSuccessForActualTranscript && isVerificationSuccessForSubmittedTranscript
+  const isVerificationSuccess = isVerificationSuccessForSubmittedTranscript; // && isVerificationSuccessForActualTranscript;
 
   console.log(isVerificationSuccess);
   res.json(isVerificationSuccess);
