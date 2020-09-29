@@ -23,7 +23,7 @@ contract CertificateHash {
 
     // Constructor fn to initilize the dummy certificate
     constructor() public {
-        issueCertificate("6811EC49F0749A2C73D23FD8054D1ACBED30AE68F8997B91BA0BEAFB93ABD95F");
+        //issueCertificate("6811EC49F0749A2C73D23FD8054D1ACBED30AE68F8997B91BA0BEAFB93ABD95F");
     }
 
     function issueCertificate(string memory _hash) public {
