@@ -1,34 +1,47 @@
 const express = require('express');
 
+const blockchain = require('../blockchain');
 const security = require('../security');
 const { TRANSCRIPTS }= require('../data');
 
 const router = express.Router();
 
 const orders = [
-  
+
 ];
 
-// @route POST /api/orders
-router.post('/orders', (req, res) => {
-  const username = req.body.username;
-  
+const extractTranscript = (username) => {
   let transcript;
-
   Object.keys(TRANSCRIPTS).forEach((key) => {
     if(TRANSCRIPTS[key].username == username) {
       transcript = TRANSCRIPTS[key];
     }
   });
 
+  return transcript;
+}
+
+
+// @route POST /api/orders
+router.post('/orders', async (req, res) => {
+  const username = req.body.username;
+
+  let transcript = extractTranscript(username);
+
   if (!transcript) {
     res.status(404).json('The username not found');
   } else {
+
+    const transcriptHash = security.getHash(JSON.stringify(transcript));
+    const transaction = await blockchain.issueNewCertificate(transcriptHash);
+    console.log(transaction)
+
     order = {
-      "id": orders.length,
+      "id": orders.length + 1,
       "transcript": transcript,
       "security": {
-        "hash": security.getHash(JSON.stringify(transcript))
+        "userId": orders.length + 1,
+        "transactionHash": transaction
       }
     }
 
@@ -57,7 +70,7 @@ router.get('/orders/:id', (req, res) => {
 
 
 // @route POST /api/verifications
-router.post('/verifications', (req, res) => {
+router.post('/verifications', async (req, res) => {
   const certificate = req.body.certificate;
 
   if(!certificate) {
@@ -65,9 +78,11 @@ router.post('/verifications', (req, res) => {
     return
   }
 
+  const hash = await blockchain.getCertificateFromUserId(certificate.security.userId);
+
   const isVerificationSuccess = security.verifyHash(
     JSON.stringify(certificate.transcript),
-    certificate.security.hash
+    hash
   );
 
   console.log(isVerificationSuccess);
