@@ -24,7 +24,7 @@ function Home() {
   const displayInfo = (id) => {
     
     const myCertificate = {};
-    myCertificate["certificate"] = orders[id];
+    myCertificate["certificate"] = orders[id-1];
 
     var textField = document.createElement("textarea");
     textField.innerText = JSON.stringify(myCertificate);
@@ -75,7 +75,7 @@ function Home() {
                   {order.transcript.fullname}
                 </td>
                 <td className="border px-4 py-2">{order.transcript.score}</td>
-                <td className="border px-4 py-2">{order.security.hash}</td>
+                <td className="border px-4 py-2">{order.security.transactionHash.transactionHash}</td>
                 <td className="border px-4 py-2">Pending</td>
                 <td
                   className="border px-4 py-2"
