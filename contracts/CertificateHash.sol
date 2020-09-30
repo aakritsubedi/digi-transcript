@@ -3,8 +3,6 @@
 // 1. Version of solidity Programming language that we want to use
 pragma solidity ^0.5.0;
 
-// import "@nomiclabs/builder/console.sol";
-
 // 2. Declare the smart contract
 contract CertificateHash {
     uint256 public certificateCount = 0; //State

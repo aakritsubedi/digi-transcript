@@ -12,7 +12,7 @@ function Certificate({ match }) {
   useEffect(() => {
     async function fetchData() {
       const order = await OrderService.fetchAllOrders(match.params.id);
-
+  
       setOrder(JSON.stringify(order[0]));
     }
 

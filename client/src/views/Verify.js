@@ -7,8 +7,10 @@ function Verify() {
 
   const verifyCertificate = async () => {
     const certificate = document.getElementById("certificate-info").value;
+    const myCert = {}
+    myCert['certificate'] = JSON.parse(certificate);
 
-    const validate = await OrderService.verifyCertificate(certificate);
+    const validate = await OrderService.verifyCertificate(myCert);
     setStatus(validate);
   };
 
