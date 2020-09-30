@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 import {
   NotificationContainer,
@@ -22,9 +23,8 @@ function Home() {
   });
 
   const displayInfo = (id) => {
-    
     const myCertificate = {};
-    myCertificate["certificate"] = orders[id-1];
+    myCertificate["certificate"] = orders[id - 1];
 
     var textField = document.createElement("textarea");
     textField.innerText = JSON.stringify(myCertificate);
@@ -57,9 +57,8 @@ function Home() {
             <th className="border px-4 py-2">SN</th>
             <th className="border px-4 py-2">Username</th>
             <th className="border px-4 py-2">Student Name</th>
-            <th className="border px-4 py-2">Student Score</th>
-            <th className="border px-4 py-2">Transcript Hash</th>
-            <th className="border px-4 py-2">Status</th>
+            <th className="border px-4 py-2">GPA</th>
+            <th className="border px-4 py-2">Blockchain Info</th>
             <th className="border px-4 py-2">Actions</th>
           </tr>
         </thead>
@@ -75,17 +74,26 @@ function Home() {
                   {order.transcript.fullname}
                 </td>
                 <td className="border px-4 py-2">{order.transcript.score}</td>
-                <td className="border px-4 py-2">{order.security.transactionHash.transactionHash}</td>
-                <td className="border px-4 py-2">Pending</td>
+                <td className="border px-4 py-2">
+                  {order.security.transactionHash.transactionHash}
+                </td>
                 <td
                   className="border px-4 py-2"
                   style={{ textAlign: "center" }}
                 >
+                  <Link to={`/order/${order.id}`}>
+                    <i className="fa fa-eye" title="View Certificate">
+                      {" "}
+                    </i>
+                  </Link>
+                  {"         "}
                   <i
                     className="fa fa-copy"
-                    title='Copy Certificate Info to clipboard'
+                    title="Copy Certificate Info to clipboard"
                     onClick={() => displayInfo(order.id)}
-                  ></i>
+                  >
+                    {" "}
+                  </i>
                 </td>
               </tr>
             );

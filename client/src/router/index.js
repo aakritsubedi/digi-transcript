@@ -3,6 +3,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import Home from "views/Home";
 import Order from "views/Order";
+import Certificate from "views/Certificate";
 import Verify from "views/Verify";
 import Header from "components/Header";
 import Footer from "components/Footer";
@@ -22,7 +23,8 @@ function Router() {
         <div>
           <Switch>
             <Route exact path={route.HOME} component={Home} />
-            <Route path={route.ORDER} component={Order} />
+            <Route exact path={route.ORDER} component={Order} />
+            <Route path={route.ORDER_ID} component={Certificate} />
             <Route path={route.VERIFY} component={Verify} />
           </Switch>
         </div>

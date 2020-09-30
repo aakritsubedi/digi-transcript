@@ -1,4 +1,8 @@
 import React, { useState } from "react";
+import Editor from "react-simple-code-editor";
+import { highlight, languages } from "prismjs/components/prism-core";
+import "prismjs/components/prism-clike";
+import "prismjs/components/prism-javascript";
 
 import OrderService from "services/transcript.service";
 
@@ -51,9 +55,22 @@ function Order() {
         </div>
       </form>
       {myCertificate ? (
-        <div>
-          <strong>Name: </strong>{myCertificate ? myCertificate.transcript.fullname : ""}
-          <strong>Marks: </strong>{myCertificate ? myCertificate.transcript.score : ""}
+        <div className='order-result'>
+          <strong>Name: </strong>
+          {myCertificate ? myCertificate.transcript.fullname : ""}
+          &nbsp;
+          <strong>Marks: </strong>
+          {myCertificate ? myCertificate.transcript.score : ""}
+          <hr />
+          <Editor
+            value={JSON.stringify(myCertificate)}
+            highlight={(myCertificate) => highlight(myCertificate, languages.js)}
+            padding={10}
+            style={{
+              fontFamily: '"Fira code", "Fira Mono", monospace',
+              fontSize: 12,
+            }}
+          />
         </div>
       ) : (
         ""

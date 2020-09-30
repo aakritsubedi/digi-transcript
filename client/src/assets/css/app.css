@@ -53993,3 +53993,7 @@ video {
     transition-duration: 1000ms;
   }
 }
+.order-result {
+  width: 50%;
+  margin: 25px auto;
+}

@@ -9,6 +9,12 @@ class OrderServices {
     return allOrders.data;
   }
 
+  static async fetchTranscriptById(id) {
+    const myOrder = await axios.get(`${endpoint_base_url}/orders/${id}`);
+
+    return myOrder.data;
+  }
+
   static async verifyCertificate(certificate) {
     const certificateInfo = await axios.post(
       `${endpoint_base_url}/verifications`,
