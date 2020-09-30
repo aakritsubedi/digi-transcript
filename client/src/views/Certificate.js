@@ -11,17 +11,17 @@ function Certificate({ match }) {
 
   useEffect(() => {
     async function fetchData() {
-      const order = await OrderService.fetchAllOrders(match.params.id);
+      const order = await OrderService.fetchTranscriptById(match.params.id-1);
   
-      setOrder(JSON.stringify(order[0]));
+      setOrder(JSON.stringify(order));
     }
 
     fetchData();
-  }, []);
+  }, [match.params.id]);
   
   return (
     <div className='order-result'> 
-      <h1>Your Certificate</h1>
+      <h1>Your  Certificate</h1>
       <hr />
       <Editor
         value={order}

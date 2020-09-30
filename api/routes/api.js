@@ -76,7 +76,7 @@ router.post('/verifications', async (req, res) => {
     return
   }
 
-  const hash = await blockchain.getCertificateFromUserId(certificate.security.blockchainLocator);
+  const hash = await blockchain.getCertificateFromId(certificate.security.blockchainLocator);
 
   const isVerificationSuccess = security.verifyHash(
     JSON.stringify(certificate.transcript),

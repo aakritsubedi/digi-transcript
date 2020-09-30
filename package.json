@@ -8,7 +8,8 @@
   },
   "scripts": {
     "dev": "lite-server",
-    "test": "echo \"Error: no test specified\" && sexit 1"
+    "test": "echo \"Error: no test specified\" && sexit 1",
+    "server": "truffle migrate --reset && node api/server.js"
   },
   "author": "AAkrit Subedi",
   "license": "ISC",

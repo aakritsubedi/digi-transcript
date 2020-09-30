@@ -59,8 +59,8 @@ function Order() {
           <strong>Name: </strong>
           {myCertificate ? myCertificate.transcript.fullname : ""}
           &nbsp;
-          <strong>Marks: </strong>
-          {myCertificate ? myCertificate.transcript.score : ""}
+          <strong>GPA: </strong>
+          {myCertificate ? myCertificate.transcript.GPA : ""}
           <hr />
           <Editor
             value={JSON.stringify(myCertificate)}

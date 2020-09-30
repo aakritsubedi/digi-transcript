@@ -48,9 +48,9 @@ const getCertificateFromHash = async (txHash) => {
   };
 }
 
-const getCertificateFromUserId = async (userId) => {
-  // Get certificate from blockchain using userId
-  const transaction = await contract.methods.certificates(userId).call();
+const getCertificateFromId = async (certificateId) => {
+  // Get certificate from blockchain
+  const transaction = await contract.methods.certificates(certificateId).call();
   
   return transaction.certificateHash;
 }
@@ -59,5 +59,5 @@ const getCertificateFromUserId = async (userId) => {
 module.exports = {
   getCertificatesCount,
   issueNewCertificate,
-  getCertificateFromUserId
+  getCertificateFromId
 }

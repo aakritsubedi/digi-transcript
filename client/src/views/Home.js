@@ -72,9 +72,9 @@ function Home() {
                 <td className="border px-4 py-2">
                   {order.transcript.fullname}
                 </td>
-                <td className="border px-4 py-2">{order.transcript.score}</td>
+                <td className="border px-4 py-2">{order.transcript.GPA}</td>
                 <td className="border px-4 py-2">
-                  {order.security.transactionHash.transactionHash}
+                  {order.security.blockchainLocator}
                 </td>
                 <td
                   className="border px-4 py-2"
