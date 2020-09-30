@@ -1,6 +1,6 @@
 const { SHA256, HmacSHA256 } = require('crypto-js');
 
-const { SECURITY_KEY, TRANSCRIPTS } = require('./data');
+const { SECURITY_KEY } = require('./config');
 
 const getHash = (message) => {
   const hash = HmacSHA256(message, SECURITY_KEY).toString();
