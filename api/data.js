@@ -1,4 +1,4 @@
-SECURITY_KEY = process.env.SECURITY_KEY;
+// Data constants
 
 const TRANSCRIPTS = {
   "aakrit": {
@@ -56,6 +56,5 @@ const TRANSCRIPTS = {
 };
 
 module.exports = {
-  SECURITY_KEY,
   TRANSCRIPTS
 };
