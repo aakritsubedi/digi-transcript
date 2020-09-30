@@ -1,12 +1,11 @@
 const Web3 = require('web3');
-
-const nodeURL = process.env.NODE_URL || 'http://localhost:7545';
+const { NODE_URL, ACCOUNT_ADDRESS } = require('./config');
 
 const gasLimit = 3000000;
 
-web3 = new Web3(nodeURL);
+web3 = new Web3(NODE_URL);
 
-const accountAddress = process.env.ACCOUNT || "0x5881EBbC9f8f72D332A9C71a99732d681b7F4A4d"; // Use the desired ethereum account here
+const accountAddress = ACCOUNT_ADDRESS;
 
 const certificateHash = require('../build/contracts/CertificateHash.json')
 const contractAbi = certificateHash.abi;
