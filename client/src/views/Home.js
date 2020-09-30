@@ -20,11 +20,10 @@ function Home() {
     }
 
     fetchData();
-  });
+  }, []);
 
   const displayInfo = (id) => {
-    const myCertificate = {};
-    myCertificate["certificate"] = orders[id - 1];
+    const myCertificate = orders[id - 1];
 
     var textField = document.createElement("textarea");
     textField.innerText = JSON.stringify(myCertificate);
