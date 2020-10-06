@@ -46,3 +46,21 @@ Run the React app
 yarn start
 ```
 Browse http://localhost:3000
+
+
+# Available APIs
+- api/orders POST: Order a new Transcript for a student
+  {
+    "username": string
+  }
+
+- api/orders GET: Retrieve all the orders
+  Response: List of objects
+
+- api/orders/id GET: Retrieve a particular order
+  Response: json object
+
+- api/verifications POST: Verify the transcript
+  {
+    "certificate": certificate json
+  }
