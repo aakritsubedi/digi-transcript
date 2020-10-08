@@ -39,7 +39,7 @@ router.post('/orders', async (req, res) => {
       "id": orders.length + 1,
       "transcript": transcript,
       "security": {
-        "blockchainLocator": orders.length + 1,
+        "transactionHash": transaction.transactionHash
       }
     }
 
@@ -71,16 +71,18 @@ router.get('/orders/:id', (req, res) => {
 router.post('/verifications', async (req, res) => {
   const certificate = req.body.certificate;
 
-  if(!certificate) {
-    res.status(400).json("Bad request, certificate not passed");
-    return
+  if(!certificate || !certificate.security.transactionHash) {
+    res.status(400).json("Bad request, insufficient data");
+    return;
   }
 
-  const hash = await blockchain.getCertificateFromId(certificate.security.blockchainLocator);
+  const { certificateHash } = await blockchain.getCertificateFromTransaction(
+    certificate.security.transactionHash
+  );
 
   const isVerificationSuccess = security.verifyHash(
     JSON.stringify(certificate.transcript),
-    hash
+    certificateHash
   );
 
   console.log(isVerificationSuccess);
