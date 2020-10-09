@@ -39,12 +39,18 @@ const issueNewCertificate = async (transcriptHash) => {
   };
 }
 
-// This function is not being used currently
-const getCertificateFromHash = async (txHash) => {
+const decodeTransactionData = (data) => {
+  let slicedData = data.slice(138); // The first 137 characters contain metadata
+                                    // and remaining characters contain the transaction value
+  return web3.utils.hexToString('0x' + slicedData);
+}
+
+const getCertificateFromTransaction = async (txHash) => {
   const transaction = await web3.eth.getTransaction(txHash);
 
   return {
-    hash: transaction.hash,
+    transactionHash: transaction.hash,
+    certificateHash: decodeTransactionData(transaction.input)
   };
 }
 
@@ -59,5 +65,6 @@ const getCertificateFromId = async (certificateId) => {
 module.exports = {
   getCertificatesCount,
   issueNewCertificate,
+  getCertificateFromTransaction,
   getCertificateFromId
 }
